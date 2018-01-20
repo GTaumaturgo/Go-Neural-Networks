@@ -21,3 +21,19 @@ func newPerceptron() perceptron {
 	}
 	return res
 }
+
+func (p perceptron) guess(inputs []float64) int {
+	sum := 0.0
+	for index := 0; index < len(inputs); index++ {
+		sum += inputs[index] * p.weights[index]
+	}
+	return sign(sum)
+}
+
+// The activation function
+func sign(f float64) int {
+	if f >= 0 {
+		return 1
+	}
+	return -1
+}
