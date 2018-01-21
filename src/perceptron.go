@@ -6,6 +6,7 @@ import (
 )
 
 const inputs = 2
+const lr = 0.1
 
 type perceptron struct {
 	weights []float64
@@ -28,6 +29,14 @@ func (p perceptron) guess(inputs []float64) int {
 		sum += inputs[index] * p.weights[index]
 	}
 	return sign(sum)
+}
+
+func (p perceptron) train(inputs []float64, target int) {
+	g := p.guess(inputs)
+	er := target - g
+	for index := 0; index < len(p.weights); index++ {
+		p.weights[index] += float64(er) * inputs[index]
+	}
 }
 
 // The activation function
