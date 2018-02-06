@@ -5,15 +5,17 @@ import (
 	"time"
 )
 
-const inputs = 2
+const inputs = 3
 const lr = 0.1
 
 type perceptron struct {
 	weights []float64
+	lr      float64
 }
 
 func newPerceptron() perceptron {
 	res := perceptron{}
+	res.lr = 0.1
 	res.weights = make([]float64, inputs)
 	src := rand.NewSource(time.Now().UnixNano())
 	r := rand.New(src)
@@ -35,7 +37,7 @@ func (p perceptron) train(inputs []float64, target int) {
 	g := p.guess(inputs)
 	er := target - g
 	for index := 0; index < len(p.weights); index++ {
-		p.weights[index] += float64(er) * inputs[index]
+		p.weights[index] += float64(er) * inputs[index] * p.lr
 	}
 }
 
