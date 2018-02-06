@@ -8,7 +8,12 @@ import (
 type point struct {
 	x     float64
 	y     float64
+	bias  float64
 	label int
+}
+
+func f(x float64) float64 {
+	return 3*x + 2
 }
 
 func newPoint() point {
@@ -19,7 +24,7 @@ func newPoint() point {
 		y: (r.Float64() * 20) - 10,
 	}
 
-	if p.x > p.y {
+	if f(p.x) > p.y {
 		p.label = -1
 	} else {
 		p.label = 1

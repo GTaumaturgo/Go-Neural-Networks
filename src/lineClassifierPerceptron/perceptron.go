@@ -5,7 +5,6 @@ import (
 	"time"
 )
 
-const inputs = 3
 const lr = 0.1
 
 type perceptron struct {
@@ -13,13 +12,13 @@ type perceptron struct {
 	lr      float64
 }
 
-func newPerceptron() perceptron {
+func newPerceptron(n int) perceptron {
 	res := perceptron{}
 	res.lr = 0.1
-	res.weights = make([]float64, inputs)
+	res.weights = make([]float64, n)
 	src := rand.NewSource(time.Now().UnixNano())
 	r := rand.New(src)
-	for index := 0; index < inputs; index++ {
+	for index := 0; index < n; index++ {
 		res.weights[index] = (r.Float64() * 2) - 1
 	}
 	return res
