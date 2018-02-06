@@ -4,10 +4,7 @@ import (
 	"fmt"
 )
 
-func pri() {
-	fmt.Println("jooj")
-}
-
 func main() {
-
+	m := newMatrix(2, 2)
+	fmt.Println(m)
 }
