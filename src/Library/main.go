@@ -1,15 +1,12 @@
 package main
 
-import (
-	"fmt"
-)
+import "fmt"
 
 func main() {
-	m := newMatrix(2, 2)
-	m.values[0][1] = 2
-	m.values[1][0] = 1
-	m2 := multMatrices(m, m)
-	m2 = multMatrices(m2, m)
-	m2.transpose()
-	fmt.Println(m2)
+	nn := newNeuralNetwork(2, 2, 2)
+	fmt.Println(nn)
+	input := []float64{1, 0}
+	target := []float64{1, 0}
+	nn.train(input, target)
+
 }

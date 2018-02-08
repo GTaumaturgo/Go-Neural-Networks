@@ -1,5 +1,10 @@
 package main
 
+import (
+	"math/rand"
+	"time"
+)
+
 /*Matrix is a type that implements a mathematical matrix*/
 type Matrix struct {
 	rows   int
@@ -46,6 +51,16 @@ func addMatrices(m1, m2 Matrix) Matrix {
 	return r
 }
 
+func subtractMatrices(m1, m2 Matrix) Matrix {
+	r := newMatrix(m1.rows, m1.cols)
+	for i := 0; i < r.rows; i++ {
+		for j := 0; j < r.cols; j++ {
+			r.values[i][j] = m1.values[i][j] - m2.values[i][j]
+		}
+	}
+	return r
+}
+
 func multMatrices(m1, m2 Matrix) Matrix {
 	result := newMatrix(m1.rows, m2.cols)
 
@@ -61,17 +76,44 @@ func multMatrices(m1, m2 Matrix) Matrix {
 	return result
 }
 
-func (m *Matrix) transpose() {
+func transpose(m Matrix) Matrix {
 	r := newMatrix(m.cols, m.rows)
 	for i := 0; i < m.rows; i++ {
 		for j := 0; j < m.cols; j++ {
 			r.values[j][i] = m.values[i][j]
 		}
 	}
-	*m = r
+	return r
+}
+
+func matrixFromArray(inp []float64) Matrix {
+	m := newMatrix(len(inp), 1)
+	for i := 0; i < m.rows; i++ {
+		m.values[i][0] = inp[i]
+	}
+	return m
+}
+func arrayFromMatrix(m Matrix) []float64 {
+	a := make([]float64, m.rows)
+	for i := 0; i < m.rows; i++ {
+		a[i] = m.values[i][0]
+	}
+	return a
+}
+
+func (m Matrix) randomize() {
+	src := rand.NewSource(time.Now().UnixNano())
+	r := rand.New(src)
+
+	for i := 0; i < m.rows; i++ {
+		for j := 0; j < m.cols; j++ {
+			m.values[i][j] = (r.Float64() * 2) - 1
+		}
+	}
 }
 
 func (m Matrix) mapf(fun func(float64) float64) {
+
 	for i := 0; i < m.rows; i++ {
 		for j := 0; j < m.cols; j++ {
 			m.values[i][j] = fun(m.values[i][j])
