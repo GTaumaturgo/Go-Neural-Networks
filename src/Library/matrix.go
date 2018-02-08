@@ -36,13 +36,14 @@ func (m Matrix) addEscalar(e int) {
 }
 
 // check if matrices have the same dimensions?
-func (m Matrix) addMatrix(m1 Matrix) {
-	for i := 0; i < m.rows; i++ {
-		for j := 0; j < m.cols; j++ {
-			m.values[i][j] += m1.values[i][j]
+func addMatrices(m1, m2 Matrix) Matrix {
+	r := newMatrix(m1.rows, m1.cols)
+	for i := 0; i < r.rows; i++ {
+		for j := 0; j < r.cols; j++ {
+			r.values[i][j] = m1.values[i][j] + m2.values[i][j]
 		}
 	}
-
+	return r
 }
 
 func multMatrices(m1, m2 Matrix) Matrix {
@@ -68,4 +69,12 @@ func (m *Matrix) transpose() {
 		}
 	}
 	*m = r
+}
+
+func (m Matrix) mapf(fun func(float64) float64) {
+	for i := 0; i < m.rows; i++ {
+		for j := 0; j < m.cols; j++ {
+			m.values[i][j] = fun(m.values[i][j])
+		}
+	}
 }
