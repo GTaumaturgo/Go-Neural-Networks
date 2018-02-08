@@ -59,3 +59,13 @@ func multMatrices(m1, m2 Matrix) Matrix {
 	}
 	return result
 }
+
+func (m *Matrix) transpose() {
+	r := newMatrix(m.cols, m.rows)
+	for i := 0; i < m.rows; i++ {
+		for j := 0; j < m.cols; j++ {
+			r.values[j][i] = m.values[i][j]
+		}
+	}
+	*m = r
+}
