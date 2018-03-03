@@ -24,10 +24,10 @@ func newMatrix(rows, cols int) Matrix {
 	return r
 }
 
-func (m Matrix) multEscalar(e int) {
+func (m Matrix) multEscalar(e float64) {
 	for i := 0; i < m.rows; i++ {
 		for j := 0; j < m.cols; j++ {
-			m.values[i][j] *= float64(e)
+			m.values[i][j] *= e
 		}
 	}
 }
